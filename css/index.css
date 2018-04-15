@@ -1,0 +1,58 @@
+﻿body {
+    color: #FFF;
+    background-color: #AAA;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.score-container {
+    color: #FFF;
+    background-color: #353535;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.whitespace {
+    margin-top: 10px;
+}
+
+#btn-overlay {
+    top: 150px;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+}
+
+#output {
+    min-height: 230px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+#high-score {
+    color: #FFF;
+    background-color: #B00;
+}
+
+.bar {
+    height: 5px;
+}

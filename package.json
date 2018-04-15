@@ -1,0 +1,24 @@
+{
+  "name": "tetris-ai",
+  "version": "1.0.0",
+  "description": "Tetris-AI contains a playable Tetris game that can be run in the browser and machine-learning algorithms that learn to play the game.",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iciclesoft/tetris-ai.git"
+  },
+  "keywords": [
+    "Tetris",
+    "AI",
+    "Genetic-Algorithm",
+    "Machine-Learning"
+  ],
+  "author": "Marco de Zeeuw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iciclesoft/tetris-ai/issues"
+  },
+  "homepage": "https://github.com/iciclesoft/tetris-ai#readme"
+}
