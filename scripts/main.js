@@ -8,16 +8,15 @@ var shape;
 var unpaused = false;
 var canDraw = true;
 var applyGravity = true;
-var speed = 9; // For everybody who likes the number 3, 3 should be considered 'normal'
+var speed = 4;
 var updateFreq = 1000 / speed;
 var $score;
-var game;
+var game = new Game();
 var stats = new Stats();
 var preNewShapeCallbacks = [];
 var postNewShapeCallbacks = [];
 
 var init = function () {
-    game = new Game();
     this.lastUpdated = Date.now();
     // Init the grid
     for (var y = 0; y < yCount; y++) {
@@ -34,7 +33,7 @@ var init = function () {
     $("#ai").click(input.initAI.bind(input));
     // Start
     var prevShape;
-    var interval = setInterval(function () {
+    var play = function () {
         if (unpaused) {
             if (applyGravity) {
                 if (shape) {
@@ -81,10 +80,15 @@ var init = function () {
             }
             drawBackground();
             var $output = $("#output");
-            $output.html("Total time: " + stats.getTotalTime() + "<br />Stats:<br />" + stats.shapeCountHtml());
+            $output.html("Current game time: " + stats.getTotalTime() + "<br />Stats:<br />" + stats.shapeCountHtml());
         }
         $score.html(game.getScore());
-    }, updateFreq / 10);
+    };
+    var nextFrame = function () {
+        play();
+        window.requestAnimationFrame(nextFrame);
+    };
+    window.requestAnimationFrame(nextFrame);
 };
 
 var drawBackground = function () {

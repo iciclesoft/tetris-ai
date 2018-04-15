@@ -1,34 +1,13 @@
 ﻿var DNA = function () {
     // Weights can be a number between -1 and +1
-    // Powweights a number between 0 and +1
     this.weights = {
-        //heightWeight: -1 + (Math.random() * 2),
-        //heightPowWeight: -1 + (Math.random() * 2),
-        //lineWeight: -1 + (Math.random() * 2),
-        //linePowWeight: -1 + (Math.random() * 2),
-        //roofThicknessWeight: -1 + (Math.random() * 2),
-        //roofThicknessPowWeight: -1 + (Math.random() * 2),
-        //roofHeightWeight: -1 + (Math.random() * 2),
-        //roofHeightPowWeight: -1 + (Math.random() * 2),
-        //adjacencyWeight: -1 + (Math.random() * 2),
-        //adjacencyPowWeight: -1 + (Math.random() * 2),
-        //potentialWeight: -1 + (Math.random() * 2),
-        //potentialPowWeight: -1 + (Math.random() * 2),
-
         heightWeight: -1 + (Math.random() * 2),
-        //heightPowWeight: Math.random(),
         roofThicknessWeight: -1 + (Math.random() * 2),
-        //roofThicknessPowWeight: Math.random(),
         roofHeightWeight: -1 + (Math.random() * 2),
-        //roofHeightPowWeight: Math.random(),
         adjacencyWeight: -1 + (Math.random() * 2),
-        //adjacencyPowWeight: Math.random(),
         wellWeight: -1 + (Math.random() * 2),
-        //wellPowWeight: Math.random(),
         lineWeight: -1 + (Math.random() * 2),
-        //linePowWeight: Math.random(),
         potentialWeight: -1 + (Math.random() * 2),
-        //potentialPowWeight: Math.random(),
     };
 
     this.reachedEnd = false;
@@ -39,26 +18,16 @@ DNA.weightCount = Object.keys(new DNA().weights).length;
 
 DNA.prototype.crossover = function (dna, conversionPoint) {
     var newDna = new DNA();
-    var even = 0;
     var takeThis;
     for (var weight in this.weights) {
         if (this.weights.hasOwnProperty(weight)) {
-            // Take both the normal- and the power-weights of one, as these are related
-            //if (even % 2 == 0) {
+            // Pick either the weight of this DNA or of the given DNA, based on the conversion-rate
             takeThis = Math.random() < conversionPoint;
-            //}
-            //even++;
             if (takeThis) {
                 newDna.weights[weight] = this.weights[weight];
             } else {
                 newDna.weights[weight] = dna.weights[weight];
             }
-            // Either get the weight from the first or the second
-            //if (Math.random() < .5) {
-            //    newDna.weights[weight] = this.weights[weight];
-            //} else {
-            //    newDna.weights[weight] = dna.weights[weight];
-            //}
         }
     }
 
@@ -71,17 +40,6 @@ DNA.prototype.mutate = function (mutationRate) {
             if (Math.random() < mutationRate) {
                 // Completely replace a weight if mutated
                 this.weights[weight] = -1 + (Math.random() * 2);
-
-                //// Slightly tweak the weight (max 20% of current in either direction)
-                ////this.weights[weight] = this.weights[weight] * (1 + (-.2 + (Math.random() * .4)));
-
-                //// Slightly tweak the weight (max .2 either direction)
-                //this.weights[weight] = this.weights[weight] + (-.2 + (Math.random() * .4));
-
-                // Pow weights shouldn't be lower than 0
-                if (this.weights[weight] < 0 && ~weight.indexOf("PowWeight")) {
-                    this.weights[weight] = Math.abs(this.weights[weight]);
-                }
             }
         }
     }
@@ -290,13 +248,6 @@ DNA.prototype.calcShapeScore = function (shape, grid, calcPotential) {
     potentialScore = potentialScore / maxPotential;
 
     // For every type, apply its weights
-    //return (Math.nonImaginaryPow(heightScore, this.weights.heightPowWeight) * this.weights.heightWeight)
-    //    + (Math.nonImaginaryPow(roofThicknessScore, this.weights.roofThicknessPowWeight) * this.weights.roofThicknessWeight)
-    //    + (Math.nonImaginaryPow(roofHeightScore, this.weights.roofHeightPowWeight) * this.weights.roofHeightWeight)
-    //    + (Math.nonImaginaryPow(adjacencyScore, this.weights.adjacencyPowWeight) * this.weights.adjacencyWeight)
-    //    + (Math.nonImaginaryPow(wellScore, this.weights.wellPowWeight) * this.weights.wellWeight)
-    //    + (Math.nonImaginaryPow(lineScore, this.weights.linePowWeight) * this.weights.lineWeight);
-    //    //+ (Math.nonImaginaryPow(potentialScore, this.weights.potentialPowWeight) * this.weights.potentialWeight);
     return (heightScore * this.weights.heightWeight)
         + (roofThicknessScore * this.weights.roofThicknessWeight)
         + (roofHeightScore * this.weights.roofHeightWeight)
@@ -327,7 +278,9 @@ DNA.prototype.getBestScore = function (shape, grid) {
             shapeMove.setDirection(shapeDir.dir);
             while (shapeMove.moveLeft(gridCopy)) {
                 // Move the shape all the way down
-                while (shapeMove.moveDown(gridCopy)) { }
+                while (shapeMove.moveDown(gridCopy)) {
+                    // No statements required
+                }
                 // Get the score of this move
                 var score = this.calcShapeScore(shapeMove, gridCopy);
                 if (score > bestScore) {
@@ -345,7 +298,9 @@ DNA.prototype.getBestScore = function (shape, grid) {
             shapeMove.setDirection(shapeDir.dir);
             while (shapeMove.moveRight(gridCopy)) {
                 // Move the shape all the way down
-                while (shapeMove.moveDown(gridCopy)) { }
+                while (shapeMove.moveDown(gridCopy)) {
+                    // No statements required
+                }
                 // Get the score of this move
                 var score = this.calcShapeScore(shapeMove, gridCopy);
                 if (score > bestScore) {
@@ -389,44 +344,6 @@ DNA.prototype.calcDiversity = function (pool) {
     var returnVal = totalDiff / DNA.weightCount;
     return Math.pow(returnVal, 2);
 };
-
-// weights html for normal+pow weights
-//DNA.prototype.getWeightsHtml = function () {
-//    var result = "";
-//    var odd = 0;
-//    var divWhitespace = "<div class='whitespace'></div>";
-//    var nWeight;
-//    var pWeight;
-//    for (var weight in this.weights) {
-//        if (this.weights.hasOwnProperty(weight)) {
-//            var value = this.weights[weight];
-//            var clr = "#DFD;";
-//            if (value < 0) {
-//                clr = "#FDD;";
-//            } else if (value == 0) {
-//                clr = "#FFF;";
-//            }
-//            var html = "<span style='color: " + clr + "'>" + weight + ": " + value + "</span><br />";
-//            if (odd % 2 == 1) {
-//                pWeight = value;
-//                var isNeg = nWeight < 0;
-//                var combinedWeight = Math.abs(Math.nonImaginaryPow(nWeight, pWeight));
-//                var scoreBar = 
-//                    "<div class='bar' style='background-color: #" + (isNeg ? "C00" : "0C0") + ";'>" +
-//                    "<div class='bar' style='float: left; background-color: #888; width: " + (isNeg ? (50 - combinedWeight * 50) : 50) + "%;'></div>" +
-//                    "<div class='bar' style='float: right; background-color: #888; width: " + (!isNeg ? (50 - combinedWeight * 50) : 50) + "%;'></div>" +
-//                    "</div>";
-//                html += scoreBar;
-//                html += divWhitespace;
-//            } else {
-//                nWeight = value;
-//            }
-//            odd++;
-//            result += html;
-//        }
-//    }
-//    return result;
-//};
 
 DNA.prototype.getWeightsHtml = function () {
     var result = "";

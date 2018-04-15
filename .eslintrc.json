@@ -1,0 +1,38 @@
+{
+    "env": {
+        "browser": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": [
+            "error",
+            4,
+            { "SwitchCase": 1 }
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-redeclare": [
+            "off"
+        ]
+    },
+    "globals": {
+        "Color": false,
+        "game": false,
+        "Stats": false,
+        "Shape": false,
+        "$": false,
+        "Game": false,
+        "GridBlock": false,
+        "Input": false
+    }
+}

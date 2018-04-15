@@ -32,8 +32,5 @@ GridBlock.prototype.show = function () {
         ctx.showStroke = false;
         ctx.showFill = true;
         ctx.block3D(this.x, this.y, this.w, this.h, this.block.fillColor);
-        //var offset = 0;
-        //var twoOffset = offset * 2;
-        //ctx.block3D(this.x + offset, this.y + offset, this.w - twoOffset, this.h - twoOffset, this.block.fillColor);
     }
 };
